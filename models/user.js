@@ -1,13 +1,13 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var User = sequelize.define('User', {
-      username: {
+      name: {
           type: DataTypes.STRING,
-          field: 'username'
+          field: 'name'
       },
-      age:  {
-          type: DataTypes.INTEGER,
-          field: 'age'
+      email:  {
+          type: DataTypes.STRING,
+          field: 'email'
       },
       password: {
           type: DataTypes.STRING,
