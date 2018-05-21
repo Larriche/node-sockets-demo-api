@@ -1,6 +1,7 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
-  var Activity = {
+  var Activity = sequelize.define('Activity', {
       message: {
           type: DataTypes.STRING,
           field: 'messages'
@@ -17,20 +18,22 @@ module.exports = (sequelize, DataTypes) => {
           type: DataTypes.STRING,
           field: 'type'
       }
-  };
+  }, {
+      tableName: 'activities'
+  });
 
   Activity.associate = function(models) {
     // associations can be defined here
     Activity.belongsTo(
-        as: 'Author',
         models.User,
-        { foreignKey: 'from_id' }
+        {as: 'Author',
+        foreignKey: 'from_id' }
     );
 
     Activity.belongsTo(
-        as: 'Recipient',
         models.User,
-        { foreignKey: 'to_id' }
+        {as: 'Recipient',
+        foreignKey: 'to_id' }
     );
   };
   return Activity;
