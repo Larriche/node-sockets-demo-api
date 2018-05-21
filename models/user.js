@@ -16,7 +16,17 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   User.associate = function(models) {
-    // associations can be defined here
+    Activity.hasMany(
+          as: 'ActivitiesFrom',
+          models.Activity,
+          { foreignKey: 'from_id' }
+    );
+
+    Activity.hasMany(
+          as: 'ActivitiesFor',
+          models.Activity,
+          { foreignKey: 'to_id' }
+    );
   };
   return User;
 };
