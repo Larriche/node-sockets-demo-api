@@ -5,8 +5,7 @@ const app = express();
 const http = require("http").Server(app);
 const io = require('socket.io')(http);
 const jsonParser = require("body-parser");
-const sequelize = require("./models").sequelize;
-const apiRoutes = require('./routes');
+const apiRoutes = require('./src/routes');
 const bodyParser = require('body-parser');
 
 
