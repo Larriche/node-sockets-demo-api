@@ -42,12 +42,12 @@ const ActivitiesService = require('./src/services').activities;
 io.on('connection', socket => {
     console.log('a client connected to the web socket');
 
-    socket.on('message', message => {
+    socket.on('message', clientData => {
         let data = {
             type: 'message',
-            from_id: 1,
-            to_id: 1,
-            message: message
+            from_id: clientData.fromId,
+            to_id: clientData.toId,
+            message: clientData.message
         };
 
         ActivitiesService.save(data).then(newMessage => {
