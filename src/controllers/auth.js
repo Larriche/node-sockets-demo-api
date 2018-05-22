@@ -24,20 +24,22 @@ const auth = {
                     });
                 } else {
                     const payload = {
+                        id: user.id,
                         email: user.email,
-                        name: user.name
+                        name: user.name,
+                        role: user.role
                     };
 
                     var token = jwt.sign(payload, 'secret', {
                         expiresIn: 1440 // expires in 24 hours
                     });
 
+                    payload.token = token;
+
                     // return the information including token as JSON
                     res.status(200)
                        .json({
-                            success: true,
                             user: payload,
-                            token: token
                         });
                 }
             });

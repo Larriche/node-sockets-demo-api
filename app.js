@@ -43,10 +43,12 @@ io.on('connection', socket => {
     console.log('a client connected to the web socket');
 
     socket.on('message', clientData => {
+        // The admin is the only one whom messages can be sent to
+        let adminId = 1 // hardcoding admin id for now;
         let data = {
             type: 'message',
             from_id: clientData.fromId,
-            to_id: clientData.toId,
+            to_id: adminId,
             message: clientData.message
         };
 
