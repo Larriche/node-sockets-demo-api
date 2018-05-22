@@ -2,6 +2,8 @@
 
 const express = require("express");
 const app = express();
+const http = require("http").Server(app);
+const io = require('socket.io').listen(http);
 const jsonParser = require("body-parser");
 const sequelize = require("./models").sequelize;
 const apiRoutes = require('./routes');
@@ -16,6 +18,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/api', apiRoutes);
 
-app.listen(port, function () {
+io.on('connection', socket => {
+    console.log('a client connected to the web socket');
+});
+
+http.listen(port, function () {
     console.log("Express server is listening on port", port);
 });
