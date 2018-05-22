@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   var Activity = sequelize.define('Activity', {
       message: {
           type: DataTypes.STRING,
-          field: 'messages'
+          field: 'message'
       },
       fromId: {
           type: DataTypes.INTEGER,
@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
           field: 'type'
       }
   }, {
-      tableName: 'activities'
+      tableName: 'activities',
+      underscored: true
   });
 
   Activity.associate = function(models) {

@@ -37,11 +37,23 @@ app.use(function (req, res, next) {
 
 app.use('/api', apiRoutes);
 
+const ActivitiesService = require('./src/services').activities;
+
 io.on('connection', socket => {
     console.log('a client connected to the web socket');
 
-    socket.on('message', data => {
-        console.log(data);
+    socket.on('message', message => {
+        let data = {
+            type: 'message',
+            from_id: 1,
+            to_id: 1,
+            message: message
+        };
+
+        ActivitiesService.save(data).then(newMessage => {
+            console.log(newMessage);
+            io.emit('message', newMessage);
+        });
     });
 });
 
