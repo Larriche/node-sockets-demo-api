@@ -49,9 +49,10 @@ module.exports = (sequelize, DataTypes) => {
                   if (result === true) {
                       return callback(null, user);
                   } else {
-                      return callback();
+                      var err = new Error('Invalid password');
+                      return callback(err);
                   }
-              })
+              });
           }
       }).catch(function(error) {
           return callback(error);

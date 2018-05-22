@@ -6,7 +6,7 @@ const express = require("express");
 const router = express.Router();
 
 // Authentication
-router.post('/auth', auth.authenticate);
+router.post('/auth/login', auth.authenticate);
 
 // Messages
 router.get('/messages', messages.getAll);

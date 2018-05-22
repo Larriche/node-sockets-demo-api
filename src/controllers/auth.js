@@ -11,13 +11,14 @@ const auth = {
      */
     authenticate(req, res, next) {
         if (!req.body.email || !req.body.password) {
-            var err = new Error('Email and password are required.');
-            err.status = 422;
-            return next(err);
+            res.status = 422;
+            res.json({
+                message: 'Email and password is required'
+            });
         } else {
             User.authenticate(req.body.email, req.body.password, function(error, user) {
                 if (error || !user) {
-                    res.status = 500;
+                    res.status(422);
                     res.json({
                         message: 'Invalid email or password'
                     });
@@ -32,12 +33,12 @@ const auth = {
                     });
 
                     // return the information including token as JSON
-                    res.status = 200;
-                    res.json({
-                        success: true,
-                        user: payload,
-                        token: token
-                    });
+                    res.status(200)
+                       .json({
+                            success: true,
+                            user: payload,
+                            token: token
+                        });
                 }
             });
         }
