@@ -48,7 +48,7 @@ io.on('connection', socket => {
         let data = {
             type: 'message',
             from_id: clientData.fromId,
-            to_id: adminId,
+            to_id: clientData.toId ? clientData.toId : adminId,
             message: clientData.message
         };
 
