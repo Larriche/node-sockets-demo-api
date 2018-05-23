@@ -85,7 +85,8 @@ io.on('connection', socket => {
     socket.on('statistic', clientData => {
         let adminId = 1;
         let data = {
-            type: clientData.type,
+            type: 'statistic',
+            sub_type: clientData.type,
             message: clientData.action,
             from_id: clientData.fromId,
             to_id: adminId

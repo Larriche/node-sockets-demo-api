@@ -18,9 +18,17 @@ module.exports = (sequelize, DataTypes) => {
           type: DataTypes.STRING,
           field: 'type'
       },
+      subType: {
+          type: DataTypes.STRING,
+          field: 'sub_type'
+      },
       createdAt: {
           type: DataTypes.DATE,
           field: 'created_at'
+      },
+      updatedAt: {
+          type: DataTypes.DATE,
+          field: 'updated_at'
       }
   }, {
       tableName: 'activities',

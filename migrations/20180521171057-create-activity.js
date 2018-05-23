@@ -22,6 +22,9 @@ module.exports = {
       type: {
         type: Sequelize.STRING
       },
+      sub_type: {
+        type: Sequelize.STRING
+      },
       created_at: {
         allowNull: true,
         type: Sequelize.DATE
