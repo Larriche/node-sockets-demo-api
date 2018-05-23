@@ -42,6 +42,11 @@ const ActivitiesService = require('./src/services').activities;
 io.on('connection', socket => {
     console.log('a client connected to the web socket');
 
+    socket.on('room', function (room) {
+        console.log('joining ' + room);
+        socket.join(room);
+    });
+
     socket.on('message', clientData => {
         // The admin is the only one whom messages can be sent to
         let adminId = 1 // hardcoding admin id for now;
@@ -53,8 +58,11 @@ io.on('connection', socket => {
         };
 
         ActivitiesService.save(data).then(newMessage => {
-            console.log(newMessage);
-            io.emit('message', newMessage);
+            let senderRoom = 'user_' + newMessage.fromId;
+            let receiverRoom = 'user_' + newMessage.toId;
+
+            io.sockets.in(senderRoom).emit('message', newMessage);
+            io.sockets.in(receiverRoom).emit('message', newMessage);
         });
     });
 });
