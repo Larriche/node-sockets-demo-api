@@ -7,7 +7,7 @@ const users = {
      */
     getAll(req, res, next) {
         User.findAll({
-            attributes: ['id', 'name', 'role'],
+            attributes: ['id', 'name', 'role', 'last_visit', 'last_activity', 'created_at'],
             where: {
                 role: 'user'
             }
