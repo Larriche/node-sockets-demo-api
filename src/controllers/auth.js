@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const models = require("../models");
 const User = models.User;
-
+const config = require('../../config/config').development;
 
 const auth = {
     /**
@@ -30,7 +30,7 @@ const auth = {
                         role: user.role
                     };
 
-                    var token = jwt.sign(payload, 'secret', {
+                    var token = jwt.sign(payload, config.secret, {
                         expiresIn: 1440 // expires in 24 hours
                     });
 

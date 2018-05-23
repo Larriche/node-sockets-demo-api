@@ -5,7 +5,8 @@
     "database": "notify",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "timezone": "Africa/Accra"
+    "timezone": "Africa/Accra",
+    "secret": "helloworld"
   },
   "test": {
     "username": "root",
