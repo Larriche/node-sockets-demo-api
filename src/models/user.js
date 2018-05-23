@@ -18,6 +18,22 @@ module.exports = (sequelize, DataTypes) => {
       role: {
           type: DataTypes.STRING,
           field: 'role'
+      },
+      lastActivity: {
+          type: DataTypes.DATE,
+          field: 'last_activity'
+      },
+      lastVisit: {
+          type: DataTypes.DATE,
+          field: 'last_visit'
+      },
+      createdAt: {
+          type: DataTypes.DATE,
+          field: 'created_at'
+      },
+      updatedAt: {
+          type: DataTypes.DATE,
+          field: 'updated_at'
       }
   }, {
       tableName: 'users',

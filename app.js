@@ -7,7 +7,9 @@ const io = require('socket.io')(http);
 const jsonParser = require("body-parser");
 const apiRoutes = require('./src/routes');
 const bodyParser = require('body-parser');
-
+const config = require('./config/config');
+const moment = require('moment');
+moment.tz.setDefault(config.development.timezone);
 
 var port = process.env.PORT || 5000;
 
@@ -38,9 +40,19 @@ app.use(function (req, res, next) {
 app.use('/api', apiRoutes);
 
 const ActivitiesService = require('./src/services').activities;
+const UsersService = require('./src/services').users;
 
 io.on('connection', socket => {
     console.log('a client connected to the web socket');
+
+    socket.on('log_visit', clientData => {
+        let userId  = clientData.userId;
+        let data = {
+            lastVisit: new Date()
+        };
+
+        UsersService.update(userId, data);
+    });
 
     socket.on('room', function (room) {
         console.log('joining ' + room);
@@ -60,7 +72,11 @@ io.on('connection', socket => {
         ActivitiesService.save(data).then(newMessage => {
             let senderRoom = 'user_' + newMessage.fromId;
             let receiverRoom = 'user_' + newMessage.toId;
+            let updateData = {
+                lastActivity: newMessage.createdAt
+            };
 
+            UsersService.update(newMessage.fromId, updateData);
             io.sockets.in(senderRoom).emit('message', newMessage);
             io.sockets.in(receiverRoom).emit('message', newMessage);
         });
@@ -76,7 +92,11 @@ io.on('connection', socket => {
         };
 
         ActivitiesService.save(data).then(newStatistic => {
-            console.log(newStatistic);
+            let updateData = {
+                lastActivity: newStatistic.createdAt
+            };
+
+            UsersService.update(newStatistic.fromId, updateData);
         });
     });
 
@@ -90,7 +110,11 @@ io.on('connection', socket => {
 
         ActivitiesService.save(data).then(newCommand => {
             let receiverRoom = 'user_' + newCommand.toId;
+            let updateData = {
+                lastActivity: newCommand.createdAt
+            };
 
+            UsersService.update(newCommand.fromId, updateData);
             io.sockets.in(receiverRoom).emit('command', newCommand);
         });
     });

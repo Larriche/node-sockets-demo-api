@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
       type: {
           type: DataTypes.STRING,
           field: 'type'
+      },
+      createdAt: {
+          type: DataTypes.DATE,
+          field: 'created_at'
       }
   }, {
       tableName: 'activities',

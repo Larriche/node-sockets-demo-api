@@ -27,6 +27,14 @@ module.exports = {
       updated_at: {
         allowNull: true,
         type: Sequelize.DATE
+      },
+      last_visit: {
+        allowNull: true,
+        type: Sequelize.DATE
+      },
+      last_activity: {
+        allowNull: true,
+        type: Sequelize.DATE
       }
     });
   },

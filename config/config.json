@@ -4,20 +4,23 @@
     "password": "qasqas11",
     "database": "notify",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "timezone": "Africa/Accra"
   },
   "test": {
     "username": "root",
     "password": "qasqas11",
     "database": "notify",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "timezone": "Africa/Accra"
   },
   "production": {
     "username": "root",
     "password": "qasqas11",
     "database": "notify",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "timezone": "Africa/Accra"
   }
 }
