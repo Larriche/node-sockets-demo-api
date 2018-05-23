@@ -49,7 +49,7 @@ io.on('connection', socket => {
 
     socket.on('message', clientData => {
         // The admin is the only one whom messages can be sent to
-        let adminId = 1 // hardcoding admin id for now;
+        let adminId = 1; // hardcoding admin id for now;
         let data = {
             type: 'message',
             from_id: clientData.fromId,
@@ -63,6 +63,20 @@ io.on('connection', socket => {
 
             io.sockets.in(senderRoom).emit('message', newMessage);
             io.sockets.in(receiverRoom).emit('message', newMessage);
+        });
+    });
+
+    socket.on('statistic', clientData => {
+        let adminId = 1;
+        let data = {
+            type: clientData.type,
+            message: clientData.action,
+            from_id: clientData.fromId,
+            to_id: adminId,
+        };
+
+        ActivitiesService.save(data).then(newStatistic => {
+            console.log(newStatistic);
         });
     });
 });

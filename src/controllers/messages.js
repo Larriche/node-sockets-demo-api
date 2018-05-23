@@ -1,5 +1,6 @@
 const models = require("../models");
 const Activity = models.Activity;
+const User = models.User;
 const Sequelize = models.Sequelize;
 const Op = Sequelize.Op;
 
@@ -14,7 +15,11 @@ const messages = {
             where: {
                 type: 'message',
                 [Op.or]: [{ fromId: userId }, { toId: userId }]
-            }
+            },
+            include: [{
+                association: 'Author' ,
+                attributes: ['name']
+            }]
         }).then(function (messages) {
             res.status = 200;
             res.json(messages);
