@@ -72,11 +72,26 @@ io.on('connection', socket => {
             type: clientData.type,
             message: clientData.action,
             from_id: clientData.fromId,
-            to_id: adminId,
+            to_id: adminId
         };
 
         ActivitiesService.save(data).then(newStatistic => {
             console.log(newStatistic);
+        });
+    });
+
+    socket.on('command', clientData => {
+        let data = {
+            type: 'command',
+            message: clientData.command,
+            from_id: clientData.fromId,
+            to_id: clientData.toId
+        };
+
+        ActivitiesService.save(data).then(newCommand => {
+            let receiverRoom = 'user_' + newCommand.toId;
+
+            io.sockets.in(receiverRoom).emit('command', newCommand);
         });
     });
 });
