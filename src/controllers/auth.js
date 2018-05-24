@@ -88,6 +88,8 @@ const auth = {
                     });
                 } else {
                     let data = {
+                        name: req.body.name,
+                        role: 'user',
                         email: req.body.email,
                         password: bcrypt.hashSync(req.body.password, 10)
                     };
