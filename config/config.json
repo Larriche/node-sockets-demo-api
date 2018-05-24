@@ -6,7 +6,8 @@
     "host": "127.0.0.1",
     "dialect": "mysql",
     "timezone": "Africa/Accra",
-    "secret": "helloworld"
+    "secret": "helloworld",
+    "jwtExpiration": 86400
   },
   "test": {
     "username": "root",

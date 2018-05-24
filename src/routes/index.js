@@ -10,6 +10,7 @@ const router = express.Router();
 
 // Authentication
 router.post('/auth/login', auth.authenticate);
+router.post('/auth/signup', auth.signup);
 
 // Messages
 router.get('/messages', messages.getAll);

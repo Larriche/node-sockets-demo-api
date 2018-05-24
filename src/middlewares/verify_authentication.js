@@ -2,8 +2,7 @@ const config = require('../../config/config').development;
 const jwt = require('jsonwebtoken');
 
 const verifyAuthentication = function (req, res, next) {
-    console.log('Verifying authentication');
-    var authorization = req.headers['authorization'];
+    var authorization = req.headers['authorization'] ? req.headers['authorization'] : req.headers['Authorization'];
 
     if (!authorization) return res.status(401).send({ auth: false, message: 'No token provided.' });
 

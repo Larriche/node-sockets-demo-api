@@ -23,7 +23,7 @@ app.use(middlewares.setHeaders);
 
 // Authentication middleware for non login routes
 app.use(middlewares.useMiddleware({
-    except: ['/api/auth/login']
+    except: ['/api/auth/login', '/api/auth/signup']
 }, middlewares.verifyAuthentication));
 
 app.use('/api', apiRoutes);
@@ -50,7 +50,7 @@ io.on('connection', socket => {
 
     socket.on('message', clientData => {
         // The admin is the only one whom messages can be sent to
-        let adminId = 1; // hardcoding admin id for now;
+        let adminId = 1; // hardcoding admin id for now :)
         let data = {
             type: 'message',
             from_id: clientData.fromId,
@@ -58,16 +58,18 @@ io.on('connection', socket => {
             message: clientData.message
         };
 
-        ActivitiesService.save(data).then(newMessage => {
-            let senderRoom = 'user_' + newMessage.fromId;
-            let receiverRoom = 'user_' + newMessage.toId;
-            let updateData = {
-                lastActivity: newMessage.createdAt
-            };
+        ActivitiesService.save(data).then(savedMessage => {
+            ActivitiesService.get(savedMessage.id).then(newMessage => {
+                let senderRoom = 'user_' + newMessage.fromId;
+                let receiverRoom = 'user_' + newMessage.toId;
+                let updateData = {
+                    lastActivity: newMessage.createdAt
+                };
 
-            UsersService.update(newMessage.fromId, updateData);
-            io.sockets.in(senderRoom).emit('message', newMessage);
-            io.sockets.in(receiverRoom).emit('message', newMessage);
+                UsersService.update(newMessage.fromId, updateData);
+                io.sockets.in(senderRoom).emit('message', newMessage);
+                io.sockets.in(receiverRoom).emit('message', newMessage);
+            });
         });
     });
 
