@@ -79,7 +79,7 @@ io.on('connection', socket => {
         let adminId = 1;
         let data = {
             type: 'statistic',
-            sub_type: clientData.type,
+            subType: clientData.type,
             message: clientData.action,
             from_id: clientData.fromId,
             to_id: adminId
