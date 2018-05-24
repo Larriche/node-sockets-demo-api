@@ -59,17 +59,19 @@ io.on('connection', socket => {
         };
 
         ActivitiesService.save(data).then(savedMessage => {
-            ActivitiesService.get(savedMessage.id).then(newMessage => {
-                let senderRoom = 'user_' + newMessage.fromId;
-                let receiverRoom = 'user_' + newMessage.toId;
-                let updateData = {
-                    lastActivity: newMessage.createdAt
-                };
+            ActivitiesService.get({id: savedMessage.id})
+                .then(newMessage => {
+                    console.log(newMessage);
+                    let senderRoom = 'user_' + newMessage.fromId;
+                    let receiverRoom = 'user_' + newMessage.toId;
+                    let updateData = {
+                        lastActivity: newMessage.createdAt
+                    };
 
-                UsersService.update(newMessage.fromId, updateData);
-                io.sockets.in(senderRoom).emit('message', newMessage);
-                io.sockets.in(receiverRoom).emit('message', newMessage);
-            });
+                    UsersService.update(newMessage.fromId, updateData);
+                    io.sockets.in(senderRoom).emit('message', newMessage);
+                    io.sockets.in(receiverRoom).emit('message', newMessage);
+                });
         });
     });
 

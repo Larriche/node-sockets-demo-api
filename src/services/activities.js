@@ -12,15 +12,13 @@ const activities = {
     },
 
     /**
-     * Get an activity by id
+     * Get an activity matching given query
      *
-     * @param {integer} id
+     * @param {Object}
      */
-    get(id) {
+    get(query) {
         return Activity.find({
-            where: {
-                id
-            },
+            where: query,
             include: [{
                 association: 'Author',
                 attributes: ['name']
@@ -30,7 +28,25 @@ const activities = {
                 attributes: ['name']
             }]
         });
-    }
+    },
+
+    /**
+     * Get all activities matching a given query
+     */
+    getAll(query) {
+        return Activity.findAll({
+            where: query,
+            order: [['createdAt', 'DESC']],
+            include: [{
+                association: 'Author',
+                attributes: ['name']
+            },
+            {
+                association: 'Recipient',
+                attributes: ['name']
+            }]
+        });
+    },
 };
 
 module.exports = activities;
