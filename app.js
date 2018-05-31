@@ -61,7 +61,6 @@ io.on('connection', socket => {
         ActivitiesService.save(data).then(savedMessage => {
             ActivitiesService.get({id: savedMessage.id})
                 .then(newMessage => {
-                    console.log(newMessage);
                     let senderRoom = 'user_' + newMessage.fromId;
                     let receiverRoom = 'user_' + newMessage.toId;
                     let updateData = {
@@ -117,3 +116,5 @@ io.on('connection', socket => {
 http.listen(port, function () {
     console.log("Express server is listening on port", port);
 });
+
+module.exports = app;
