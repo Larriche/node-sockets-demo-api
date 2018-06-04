@@ -21,7 +21,7 @@ const activities = {
             where: query,
             include: [{
                 association: 'Author',
-                attributes: ['name']
+                attributes: ['name', 'id']
             },
             {
                 association: 'Recipient',
@@ -39,7 +39,7 @@ const activities = {
             order: [['createdAt', 'DESC']],
             include: [{
                 association: 'Author',
-                attributes: ['name']
+                attributes: ['name', 'id']
             },
             {
                 association: 'Recipient',
