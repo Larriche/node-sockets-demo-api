@@ -2,6 +2,7 @@
 
 const testApi = require('./api.int.test.js');
 const testServices = require('./services.unit.test.js');
+const bcrypt = require('bcrypt');
 
 testApi();
-testServices(); const bcrypt = require('bcrypt');
+testServices();
